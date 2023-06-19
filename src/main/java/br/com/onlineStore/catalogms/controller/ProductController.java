@@ -36,8 +36,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public Page<DataProduct> getAll(@PageableDefault(size = 20, sort = "name") Pageable page){
-        return service.findAllProduct(page);
+    public Page<DataProduct> getAll(@PageableDefault(size = 20, sort = "name") Pageable pageable){
+        return service.findAllProduct(pageable);
     }
 
     @GetMapping("{code}")

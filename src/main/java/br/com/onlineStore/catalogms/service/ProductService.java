@@ -38,8 +38,8 @@ public class ProductService {
         repository.deleteById(code);
     }
 
-    public Page<DataProduct> findAllProduct(Pageable page){
-        return repository.findAll(page)
+    public Page<DataProduct> findAllProduct(Pageable pageable){
+        return repository.findAll(pageable)
                 .map(product -> mapper.map(product, DataProduct.class));
     }
 
