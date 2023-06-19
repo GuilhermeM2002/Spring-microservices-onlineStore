@@ -22,7 +22,7 @@ public class Product {
     @NotBlank
     @Size(max = 40)
     private String name;
-    @NotBlank
+    @NotNull
     private double price;
     @NotBlank
     private String description;

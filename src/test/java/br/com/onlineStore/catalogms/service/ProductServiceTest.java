@@ -1,65 +1,78 @@
 package br.com.onlineStore.catalogms.service;
 
 import br.com.onlineStore.catalogms.DTO.DataProduct;
-import br.com.onlineStore.catalogms.domain.Category;
 import br.com.onlineStore.catalogms.domain.Product;
 import br.com.onlineStore.catalogms.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-@AutoConfigureJsonTesters
+@ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
-    @Autowired
-    private MockMvc mvc;
-    @MockBean
+    @Mock
     private ProductRepository repository;
-    @Autowired
+    @Mock
     private ModelMapper mapper;
-    @Autowired
-    private JacksonTester<DataProduct> jacksonTester;
-
-    @Test
-    @DisplayName("Return http code 400 when the information is invalid")
-    void persistProduct400() throws Exception {
-        var response = mvc.perform(post("/product")).andReturn().getResponse();
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    @InjectMocks
+    private ProductService productService;
+    private DataProduct dto;
+    private Product product;
+    private Long id;
+    @BeforeEach
+    void setUp() {
+        dto = mock(DataProduct.class);
+        product = mock(Product.class);
+        id = 1L;
     }
-
     @Test
-    @DisplayName("Return http code 201 when the information is valid")
-    void persistProduct201() throws Exception {
-        var product = new DataProduct(
-                1L,
-                "Smartphone",
-                5000,
-                "Whatever",
-                Category.ELECTRONIC
+    @DisplayName("Should persist product and return mapped DataProduct")
+    void persistProduct() {
+        when(mapper.map(dto, Product.class)).thenReturn(product);
+        when(repository.save(product)).thenReturn(product);
+        when(mapper.map(product, DataProduct.class)).thenReturn(dto);
+
+        DataProduct result = productService.persistProduct(dto);
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto, result),
+                () -> verify(mapper).map(dto, Product.class),
+                () -> verify(repository).save(product),
+                () -> verify(mapper).map(product, DataProduct.class)
         );
-        when(repository.save(any())).thenReturn(mapper.map(product, Product.class));
+    }
+    @Test
+    @DisplayName("Existing product should update product and return mapped DataProduct")
+    void updateProductCase1() {
+        when(repository.getReferenceById(id)).thenReturn(product);
+        when(mapper.map(product, DataProduct.class)).thenReturn(dto);
 
-        var response = mvc.perform(post("/product")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jacksonTester.write(product).getJson())).andReturn().getResponse();
+        DataProduct result = productService.updateProduct(dto, id);
 
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-        assertThat(response.getContentAsString()).isEqualTo(jacksonTester.write(product).getJson());
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto, result),
+                () -> verify(repository).getReferenceById(id),
+                () -> verify(mapper).map(product, DataProduct.class)
+        );
+    }
+    @Test
+    @DisplayName("Non existing product should throw EntityNotFoundException")
+    void updateProductCase2() {
+        when(repository.getReferenceById(id)).thenReturn(null);
+
+        assertThrows(EntityNotFoundException.class, () -> productService.updateProduct(new DataProduct(), id));
+        verify(repository).getReferenceById(id);
     }
 }
