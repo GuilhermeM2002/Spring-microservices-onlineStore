@@ -3,6 +3,7 @@ package br.com.onlineStore.shoppingCartms.service;
 import br.com.onlineStore.shoppingCartms.DTO.DataShoppingCart;
 import br.com.onlineStore.shoppingCartms.domain.ShoppingCart;
 import br.com.onlineStore.shoppingCartms.repository.ShoppingCartRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,7 @@ public class ShoppingCartService {
     @Autowired
     private ModelMapper mapper;
     @Autowired
-    private updateCartService updateCart;
+    private UpdateCartService updateCart;
     
     public DataShoppingCart persistProductCart(DataShoppingCart dto){
         var productShoppingCart = mapper.map(dto, ShoppingCart.class);
@@ -26,6 +27,9 @@ public class ShoppingCartService {
 
     public DataShoppingCart updateProductCart(DataShoppingCart dto, Long id){
         var shoppingCart = repository.getReferenceById(id);
+        if(shoppingCart == null){
+            throw new EntityNotFoundException();
+        }
         updateCart.updateCart(dto, shoppingCart);
         return mapper.map(shoppingCart, DataShoppingCart.class);
     }

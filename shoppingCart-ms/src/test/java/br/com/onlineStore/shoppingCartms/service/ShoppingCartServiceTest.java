@@ -1,0 +1,85 @@
+package br.com.onlineStore.shoppingCartms.service;
+
+import br.com.onlineStore.shoppingCartms.DTO.DataShoppingCart;
+import br.com.onlineStore.shoppingCartms.domain.ShoppingCart;
+import br.com.onlineStore.shoppingCartms.repository.ShoppingCartRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+@ExtendWith(MockitoExtension.class)
+class ShoppingCartServiceTest {
+    @InjectMocks
+    private ShoppingCartService service;
+    @Mock
+    private ModelMapper mapper;
+    @Mock
+    private ShoppingCartRepository repository;
+    @Mock
+    private UpdateCartService update;
+    private ShoppingCart cart;
+    private DataShoppingCart dto;
+    private Long id;
+    @BeforeEach
+    void setUp(){
+        cart = mock(ShoppingCart.class);
+        dto = mock(DataShoppingCart.class);
+        id = 1L;
+    }
+    @Test
+    @DisplayName("Should persist product in the cart and return mapped DataShoppingCart")
+    void persistProductCart() {
+        when(mapper.map(dto, ShoppingCart.class)).thenReturn(cart);
+        when(repository.save(cart)).thenReturn(cart);
+        when(mapper.map(cart, DataShoppingCart.class)).thenReturn(dto);
+
+        var result = service.persistProductCart(dto);
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto, result),
+                () -> verify(repository).save(cart),
+                () -> verify(mapper).map(dto, ShoppingCart.class),
+                () -> verify(mapper).map(cart, DataShoppingCart.class)
+        );
+    }
+
+    @Test
+    @DisplayName("Existing product in the cart should update product and return mapped DataShoppingCard")
+    void updateProductCartCase1() {
+        when(repository.getReferenceById(id)).thenReturn(cart);
+        when(mapper.map(cart, DataShoppingCart.class)).thenReturn(dto);
+
+        var result = service.updateProductCart(dto, id);
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto, result),
+                () -> verify(repository).getReferenceById(id),
+                () -> verify(mapper).map(cart, DataShoppingCart.class)
+        );
+    }
+    @Test
+    @DisplayName("Non existing product in the cart should throw EntityNotFoundException")
+    void updateProductCartCase2() {
+        when(repository.getReferenceById(id)).thenReturn(null);
+        assertThrows(EntityNotFoundException.class, () -> service.updateProductCart(dto,id));
+        verify(repository).getReferenceById(id);
+
+    }
+
+    @Test
+    void allShoppingCart() {
+    }
+}
