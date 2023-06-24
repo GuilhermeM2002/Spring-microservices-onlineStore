@@ -13,6 +13,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -81,5 +86,20 @@ class ShoppingCartServiceTest {
 
     @Test
     void allShoppingCart() {
+        var pageable = Pageable.ofSize(10).withPage(0);
+        var shoppingCart = Arrays.asList(
+                cart,
+                cart,
+                cart
+        );
+        var page = new PageImpl<>(shoppingCart,pageable, shoppingCart.size());
+        when(repository.findAll(pageable)).thenReturn(page);
+        var result = service.allShoppingCart(pageable);
+
+        assertAll(
+                () -> assertEquals(3,result.getTotalElements()),
+                () -> assertEquals(3, result.getContent().size()),
+                () -> verify(repository).findAll(pageable)
+        );
     }
 }
