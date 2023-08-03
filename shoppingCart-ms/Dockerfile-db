@@ -1,0 +1,10 @@
+FROM mysql:latest
+
+ENV MYSQL_ROOT_PASSWORD Gm1507@#
+ENV MYSQL_DATABASE shoppingCart
+ENV MYSQL_USER root
+ENV MYSQL_PASSWORD Gm1507@#
+
+COPY ./src/main/resources/db/migration /docker-entrypoint-initdb.d/
+
+EXPOSE 3307
