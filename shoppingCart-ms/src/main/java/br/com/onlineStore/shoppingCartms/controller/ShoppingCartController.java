@@ -16,10 +16,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ShoppingCartController {
     @Autowired
     private ShoppingCartService service;
-    @PostMapping
-    public ResponseEntity persist(@RequestBody @Valid DataShoppingCart dto, UriComponentsBuilder builder){
-        var uri = builder.path("/shoppingCart/{id}").buildAndExpand(dto.getId()).toUri();
-        var cart = service.persistProductCart(dto);
+    @PostMapping("/{id}")
+    public ResponseEntity persist(@PathVariable Long id, UriComponentsBuilder builder){
+        var uri = builder.path("/shoppingCart/{id}").buildAndExpand(id).toUri();
+        var cart = service.persistProductCart(id);
         return ResponseEntity.created(uri).body(cart);
     }
 
