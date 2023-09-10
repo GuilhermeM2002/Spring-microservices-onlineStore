@@ -49,7 +49,7 @@ class ShoppingCartServiceTest {
         when(repository.save(cart)).thenReturn(cart);
         when(mapper.map(cart, DataShoppingCart.class)).thenReturn(dto);
 
-        var result = service.persistProductCart(dto);
+        var result = service.persistProductCart(id);
 
         assertAll(
                 () -> assertNotNull(result),
