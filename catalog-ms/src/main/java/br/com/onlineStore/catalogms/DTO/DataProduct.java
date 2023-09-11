@@ -15,5 +15,6 @@ public class DataProduct {
     private String name;
     private double price;
     private String description;
+    private int quantity;
     private Category category;
 }

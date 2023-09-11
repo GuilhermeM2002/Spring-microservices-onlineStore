@@ -26,6 +26,8 @@ public class Product {
     private double price;
     @NotBlank
     private String description;
+    @NotBlank
+    private int quantity;
     @Enumerated(EnumType.STRING)
     @NotNull
     private Category category;
