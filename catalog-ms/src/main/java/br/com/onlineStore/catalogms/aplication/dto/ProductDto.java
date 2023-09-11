@@ -1,6 +1,6 @@
-package br.com.onlineStore.catalogms.DTO;
+package br.com.onlineStore.catalogms.aplication.dto;
 
-import br.com.onlineStore.catalogms.domain.Category;
+import br.com.onlineStore.catalogms.core.domain.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DataProduct {
+public class ProductDto {
     private Long codeProduct;
     private String name;
     private double price;

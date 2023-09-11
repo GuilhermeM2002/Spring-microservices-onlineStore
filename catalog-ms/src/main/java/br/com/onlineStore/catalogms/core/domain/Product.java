@@ -1,6 +1,6 @@
-package br.com.onlineStore.catalogms.domain;
+package br.com.onlineStore.catalogms.core.domain;
 
-import br.com.onlineStore.catalogms.DTO.DataProduct;
+import br.com.onlineStore.catalogms.aplication.dto.ProductDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,7 +32,7 @@ public class Product {
     @NotNull
     private Category category;
 
-    public void productUpdate(DataProduct dto){
+    public void productUpdate(ProductDto dto){
         this.name = dto.getName();
         this.price = dto.getPrice();
         this.description = dto.getDescription();

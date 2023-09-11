@@ -1,4 +1,4 @@
-package br.com.onlineStore.catalogms.domain;
+package br.com.onlineStore.catalogms.core.domain;
 
 public enum Category {
     ELECTRONIC,

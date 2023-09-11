@@ -1,4 +1,4 @@
-package br.com.onlineStore.catalogms.config;
+package br.com.onlineStore.catalogms.infra.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

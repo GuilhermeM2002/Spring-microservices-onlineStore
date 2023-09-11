@@ -1,8 +1,9 @@
 package br.com.onlineStore.catalogms.service;
 
-import br.com.onlineStore.catalogms.DTO.DataProduct;
-import br.com.onlineStore.catalogms.domain.Product;
-import br.com.onlineStore.catalogms.repository.ProductRepository;
+import br.com.onlineStore.catalogms.aplication.dto.ProductDto;
+import br.com.onlineStore.catalogms.core.domain.Product;
+import br.com.onlineStore.catalogms.adapters.repository.ProductRepository;
+import br.com.onlineStore.catalogms.infra.ProductRepositoryImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,13 +34,13 @@ class ProductServiceTest {
     @Mock
     private ModelMapper mapper;
     @InjectMocks
-    private ProductService service;
-    private DataProduct dto;
+    private ProductRepositoryImpl service;
+    private ProductDto dto;
     private Product product;
     private Long code;
     @BeforeEach
     void setUp() {
-        dto = mock(DataProduct.class);
+        dto = mock(ProductDto.class);
         product = mock(Product.class);
         code = 1L;
     }
@@ -48,31 +49,31 @@ class ProductServiceTest {
     void persistProduct() {
         when(mapper.map(dto, Product.class)).thenReturn(product);
         when(repository.save(product)).thenReturn(product);
-        when(mapper.map(product, DataProduct.class)).thenReturn(dto);
+        when(mapper.map(product, ProductDto.class)).thenReturn(dto);
 
-        DataProduct result = service.persistProduct(dto);
+        ProductDto result = service.persistProduct(dto);
 
         assertAll(
                 () -> assertNotNull(result),
                 () -> assertEquals(dto, result),
                 () -> verify(mapper).map(dto, Product.class),
                 () -> verify(repository).save(product),
-                () -> verify(mapper).map(product, DataProduct.class)
+                () -> verify(mapper).map(product, ProductDto.class)
         );
     }
     @Test
     @DisplayName("Existing product should update product and return mapped DataProduct")
     void updateProductCase1() {
         when(repository.getReferenceById(code)).thenReturn(product);
-        when(mapper.map(product, DataProduct.class)).thenReturn(dto);
+        when(mapper.map(product, ProductDto.class)).thenReturn(dto);
 
-        DataProduct result = service.updateProduct(dto, code);
+        ProductDto result = service.updateProduct(dto, code);
 
         assertAll(
                 () -> assertNotNull(result),
                 () -> assertEquals(dto, result),
                 () -> verify(repository).getReferenceById(code),
-                () -> verify(mapper).map(product, DataProduct.class)
+                () -> verify(mapper).map(product, ProductDto.class)
         );
     }
     @Test
@@ -94,7 +95,7 @@ class ProductServiceTest {
         );
         Page<Product> page = new PageImpl<>(products, pageable, products.size());
         when(repository.findAll(pageable)).thenReturn(page);
-        Page<DataProduct> result = service.findAllProduct(pageable);
+        Page<ProductDto> result = service.findAllProduct(pageable);
 
         assertAll(
                 () -> assertEquals(3,result.getTotalElements()),
@@ -106,7 +107,7 @@ class ProductServiceTest {
     @DisplayName("Should return one product")
     void findByCodeProductCase1(){
         when(repository.findById(code)).thenReturn(Optional.of(product));
-        when(mapper.map(product, DataProduct.class)).thenReturn(dto);
+        when(mapper.map(product, ProductDto.class)).thenReturn(dto);
 
         var result = service.findByCodeProduct(code);
 
@@ -114,7 +115,7 @@ class ProductServiceTest {
                 () -> assertNotNull(result),
                 () -> assertEquals(dto, result),
                 () -> verify(repository).findById(code),
-                () -> verify(mapper).map(product, DataProduct.class)
+                () -> verify(mapper).map(product, ProductDto.class)
         );
     }
 

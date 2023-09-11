@@ -1,4 +1,4 @@
-package br.com.onlineStore.catalogms.infra;
+package br.com.onlineStore.catalogms.core.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
