@@ -31,11 +31,4 @@ public class Product {
     @Enumerated(EnumType.STRING)
     @NotNull
     private Category category;
-
-    public void productUpdate(ProductDto dto){
-        this.name = dto.getName();
-        this.price = dto.getPrice();
-        this.description = dto.getDescription();
-        this.category = dto.getCategory();
-    }
 }
