@@ -1,4 +1,4 @@
-package br.com.onlineStore.shoppingCartms.DTO;
+package br.com.onlineStore.shoppingCartms.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package br.com.onlineStore.shoppingCartms.config;
+package br.com.onlineStore.shoppingCartms.infra.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

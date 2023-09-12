@@ -1,8 +1,10 @@
 package br.com.onlineStore.shoppingCartms.service;
 
-import br.com.onlineStore.shoppingCartms.DTO.DataShoppingCart;
-import br.com.onlineStore.shoppingCartms.domain.ShoppingCart;
-import br.com.onlineStore.shoppingCartms.repository.ShoppingCartRepository;
+import br.com.onlineStore.shoppingCartms.application.dto.DataShoppingCart;
+import br.com.onlineStore.shoppingCartms.application.useCasesImpl.UpdateCartUseCaseImpl;
+import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
+import br.com.onlineStore.shoppingCartms.adapters.repository.ShoppingCartRepository;
+import br.com.onlineStore.shoppingCartms.infra.ShoppingCartRepositoryImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +19,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -26,13 +27,13 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ShoppingCartServiceTest {
     @InjectMocks
-    private ShoppingCartService service;
+    private ShoppingCartRepositoryImpl service;
     @Mock
     private ModelMapper mapper;
     @Mock
     private ShoppingCartRepository repository;
     @Mock
-    private UpdateCartService update;
+    private UpdateCartUseCaseImpl update;
     private ShoppingCart cart;
     private DataShoppingCart dto;
     private Long id;

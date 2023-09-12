@@ -1,6 +1,6 @@
-package br.com.onlineStore.shoppingCartms.repository;
+package br.com.onlineStore.shoppingCartms.adapters.repository;
 
-import br.com.onlineStore.shoppingCartms.domain.ShoppingCart;
+import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long> {

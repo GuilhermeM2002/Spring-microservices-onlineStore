@@ -1,9 +1,10 @@
-package br.com.onlineStore.shoppingCartms.service;
+package br.com.onlineStore.shoppingCartms.infra;
 
-import br.com.onlineStore.shoppingCartms.DTO.DataShoppingCart;
-import br.com.onlineStore.shoppingCartms.http.ProductClient;
-import br.com.onlineStore.shoppingCartms.domain.ShoppingCart;
-import br.com.onlineStore.shoppingCartms.repository.ShoppingCartRepository;
+import br.com.onlineStore.shoppingCartms.application.dto.DataShoppingCart;
+import br.com.onlineStore.shoppingCartms.application.useCasesImpl.UpdateCartUseCaseImpl;
+import br.com.onlineStore.shoppingCartms.infra.http.ProductClient;
+import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
+import br.com.onlineStore.shoppingCartms.adapters.repository.ShoppingCartRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ShoppingCartService {
+public class ShoppingCartRepositoryImpl {
     @Autowired
     private ProductClient productClient;
     @Autowired
@@ -20,7 +21,7 @@ public class ShoppingCartService {
     @Autowired
     private ModelMapper mapper;
     @Autowired
-    private UpdateCartService updateCart;
+    private UpdateCartUseCaseImpl updateCart;
     
     public DataShoppingCart persistProductCart(Long id){
         var product = productClient.getProduct(id);

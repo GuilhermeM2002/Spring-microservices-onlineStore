@@ -1,6 +1,6 @@
-package br.com.onlineStore.shoppingCartms.http;
+package br.com.onlineStore.shoppingCartms.infra.http;
 
-import br.com.onlineStore.shoppingCartms.DTO.DataShoppingCart;
+import br.com.onlineStore.shoppingCartms.application.dto.DataShoppingCart;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

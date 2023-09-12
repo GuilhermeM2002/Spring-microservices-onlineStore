@@ -1,6 +1,6 @@
-package br.com.onlineStore.shoppingCartms.domain;
+package br.com.onlineStore.shoppingCartms.core.domain;
 
-import br.com.onlineStore.shoppingCartms.DTO.DataShoppingCart;
+import br.com.onlineStore.shoppingCartms.application.dto.DataShoppingCart;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
