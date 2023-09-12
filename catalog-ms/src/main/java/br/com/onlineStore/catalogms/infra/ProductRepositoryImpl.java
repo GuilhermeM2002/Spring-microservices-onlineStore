@@ -1,6 +1,7 @@
 package br.com.onlineStore.catalogms.infra;
 
 import br.com.onlineStore.catalogms.aplication.dto.ProductDto;
+import br.com.onlineStore.catalogms.aplication.useCasesImpl.UpdateProductUseCaseImpl;
 import br.com.onlineStore.catalogms.core.domain.Product;
 import br.com.onlineStore.catalogms.adapters.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,6 +17,8 @@ public class ProductRepositoryImpl {
     private ProductRepository repository;
     @Autowired
     private ModelMapper mapper;
+    @Autowired
+    private UpdateProductUseCaseImpl update;
 
     public ProductDto persistProduct(ProductDto dto){
         var product = mapper.map(dto, Product.class);
@@ -28,8 +31,8 @@ public class ProductRepositoryImpl {
         if (product == null){
             throw new EntityNotFoundException();
         }
-        product.productUpdate(dto);
-        return mapper.map(product, ProductDto.class) ;
+        update.updateProduct(product, dto);
+        return mapper.map(product, ProductDto.class);
     }
 
     public void deleteProduct(Long code){
