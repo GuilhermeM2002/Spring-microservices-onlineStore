@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UpdateCartUseCaseImpl implements UpdateCartUseCase {
+    @Override
     public void updateCart(DataShoppingCart dto, ShoppingCart cart){
         cart.setName(dto.getName());
         cart.setPrice(dto.getPrice());
