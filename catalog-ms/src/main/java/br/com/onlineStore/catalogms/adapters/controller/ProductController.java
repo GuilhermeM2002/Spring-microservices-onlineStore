@@ -1,6 +1,8 @@
 package br.com.onlineStore.catalogms.adapters.repository.controller;
 
 import br.com.onlineStore.catalogms.aplication.dto.ProductDto;
+import br.com.onlineStore.catalogms.aplication.useCasesImpl.PersistProductUseCaseImpl;
+import br.com.onlineStore.catalogms.core.exception.PriceInvalidException;
 import br.com.onlineStore.catalogms.infra.ProductRepositoryImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ProductController {
     @Autowired
     private ProductRepositoryImpl service;
+    @Autowired
+    private PersistProductUseCaseImpl persistProduct;
     @PostMapping
-    public ResponseEntity persist(@RequestBody @Valid ProductDto dto, UriComponentsBuilder builder){
-        var product = service.persistProduct(dto);
+    public ResponseEntity persist(@RequestBody @Valid ProductDto dto, UriComponentsBuilder builder) throws PriceInvalidException {
+        var product = persistProduct.persistProduct(dto);
         var uri = builder.path("product/{code}").buildAndExpand(product.getCodeProduct()).toUri();
         return ResponseEntity.created(uri).body(product);
     }
