@@ -1,4 +1,4 @@
-package br.com.onlineStore.catalogms.infra;
+package br.com.onlineStore.catalogms.infra.impl;
 
 import br.com.onlineStore.catalogms.aplication.dto.ProductDto;
 import br.com.onlineStore.catalogms.aplication.useCasesImpl.UpdateProductUseCaseImpl;
