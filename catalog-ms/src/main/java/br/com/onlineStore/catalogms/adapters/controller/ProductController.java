@@ -1,9 +1,9 @@
-package br.com.onlineStore.catalogms.adapters.repository.controller;
+package br.com.onlineStore.catalogms.adapters.controller;
 
 import br.com.onlineStore.catalogms.aplication.dto.ProductDto;
 import br.com.onlineStore.catalogms.aplication.useCasesImpl.PersistProductUseCaseImpl;
-import br.com.onlineStore.catalogms.core.exception.PriceInvalidException;
-import br.com.onlineStore.catalogms.infra.ProductRepositoryImpl;
+import br.com.onlineStore.catalogms.infra.exception.PriceInvalidException;
+import br.com.onlineStore.catalogms.infra.impl.ProductRepositoryImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

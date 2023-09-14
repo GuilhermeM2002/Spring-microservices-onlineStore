@@ -3,7 +3,7 @@ package br.com.onlineStore.catalogms.service;
 import br.com.onlineStore.catalogms.aplication.dto.ProductDto;
 import br.com.onlineStore.catalogms.core.domain.Product;
 import br.com.onlineStore.catalogms.adapters.repository.ProductRepository;
-import br.com.onlineStore.catalogms.infra.ProductRepositoryImpl;
+import br.com.onlineStore.catalogms.infra.impl.ProductRepositoryImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
