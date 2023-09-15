@@ -4,5 +4,6 @@ import br.com.onlineStore.catalogms.aplication.dto.ProductDto;
 import br.com.onlineStore.catalogms.core.domain.Product;
 
 public interface UpdateProductUseCase {
-    public void updateProduct(Product product, ProductDto dto);
+    void updateProduct(Product product, ProductDto dto);
+    ProductDto updateProduct(Long code, ProductDto dto);
 }
