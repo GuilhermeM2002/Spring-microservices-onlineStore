@@ -4,7 +4,7 @@ import br.com.onlineStore.shoppingCartms.application.dto.DataShoppingCart;
 import br.com.onlineStore.shoppingCartms.application.useCasesImpl.UpdateCartUseCaseImpl;
 import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
 import br.com.onlineStore.shoppingCartms.adapters.repository.ShoppingCartRepository;
-import br.com.onlineStore.shoppingCartms.infra.ShoppingCartRepositoryImpl;
+import br.com.onlineStore.shoppingCartms.infra.ShoppingCartRepositoryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ShoppingCartServiceTest {
     @InjectMocks
-    private ShoppingCartRepositoryImpl service;
+    private ShoppingCartRepositoryService service;
     @Mock
     private ModelMapper mapper;
     @Mock

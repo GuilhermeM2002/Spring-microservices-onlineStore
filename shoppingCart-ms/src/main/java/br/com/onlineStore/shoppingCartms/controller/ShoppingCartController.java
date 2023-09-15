@@ -1,7 +1,7 @@
-package br.com.onlineStore.shoppingCartms.adapters.controller;
+package br.com.onlineStore.shoppingCartms.controller;
 
 import br.com.onlineStore.shoppingCartms.application.dto.DataShoppingCart;
-import br.com.onlineStore.shoppingCartms.infra.ShoppingCartRepositoryImpl;
+import br.com.onlineStore.shoppingCartms.infra.ShoppingCartRepositoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("shoppingCart")
 public class ShoppingCartController {
     @Autowired
-    private ShoppingCartRepositoryImpl service;
+    private ShoppingCartRepositoryService service;
     @PostMapping("/{id}")
     public ResponseEntity persist(@PathVariable Long id, UriComponentsBuilder builder){
         var uri = builder.path("/shoppingCart/{id}").buildAndExpand(id).toUri();
