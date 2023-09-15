@@ -6,15 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class ProductDto {
-    private Long codeProduct;
-    private String name;
-    private double price;
-    private String description;
-    private int quantity;
-    private Category category;
-}
+public record ProductDto(Long codeProduct,
+        String name,
+        double price,
+        String description,
+        int quantity,
+        Category category) { }
