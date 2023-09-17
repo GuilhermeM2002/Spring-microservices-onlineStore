@@ -11,15 +11,17 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "order")
-@Table(name = "order")
+@Entity(name = "orders")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    private OffsetDateTime dateTime;
+    @Column(name = "dt_order")
+    private OffsetDateTime date;
     @NotNull
+    @Column(name = "vl_order")
     private double value;
     @NotBlank
     private String TrackingCode;
