@@ -1,6 +1,6 @@
 package br.com.onlineStore.shoppingCartms.core.domain;
 
-import br.com.onlineStore.shoppingCartms.application.dto.DataShoppingCart;
+import br.com.onlineStore.shoppingCartms.application.dto.ShoppingCartDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +24,7 @@ public class ShoppingCart {
     @NotNull
     private int quantity;
 
-    public void updateShoppingCart(DataShoppingCart dto){
+    public void updateShoppingCart(ShoppingCartDto dto){
         this.name = dto.getName();
         this.price = dto.getPrice();
         this.quantity = dto.getQuantity();

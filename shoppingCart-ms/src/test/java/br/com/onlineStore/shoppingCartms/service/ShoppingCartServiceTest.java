@@ -1,6 +1,6 @@
 package br.com.onlineStore.shoppingCartms.service;
 
-import br.com.onlineStore.shoppingCartms.application.dto.DataShoppingCart;
+import br.com.onlineStore.shoppingCartms.application.dto.ShoppingCartDto;
 import br.com.onlineStore.shoppingCartms.application.useCasesImpl.UpdateCartUseCaseImpl;
 import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
 import br.com.onlineStore.shoppingCartms.adapters.repository.ShoppingCartRepository;
@@ -35,12 +35,12 @@ class ShoppingCartServiceTest {
     @Mock
     private UpdateCartUseCaseImpl update;
     private ShoppingCart cart;
-    private DataShoppingCart dto;
+    private ShoppingCartDto dto;
     private Long id;
     @BeforeEach
     void setUp(){
         cart = mock(ShoppingCart.class);
-        dto = mock(DataShoppingCart.class);
+        dto = mock(ShoppingCartDto.class);
         id = 1L;
     }
     @Test
@@ -48,7 +48,7 @@ class ShoppingCartServiceTest {
     void persistProductCart() {
         when(mapper.map(dto, ShoppingCart.class)).thenReturn(cart);
         when(repository.save(cart)).thenReturn(cart);
-        when(mapper.map(cart, DataShoppingCart.class)).thenReturn(dto);
+        when(mapper.map(cart, ShoppingCartDto.class)).thenReturn(dto);
 
         var result = service.persistProductCart(id);
 
@@ -57,7 +57,7 @@ class ShoppingCartServiceTest {
                 () -> assertEquals(dto, result),
                 () -> verify(repository).save(cart),
                 () -> verify(mapper).map(dto, ShoppingCart.class),
-                () -> verify(mapper).map(cart, DataShoppingCart.class)
+                () -> verify(mapper).map(cart, ShoppingCartDto.class)
         );
     }
 
@@ -65,7 +65,7 @@ class ShoppingCartServiceTest {
     @DisplayName("Existing product in the cart should update product and return mapped DataShoppingCard")
     void updateProductCartCase1() {
         when(repository.getReferenceById(id)).thenReturn(cart);
-        when(mapper.map(cart, DataShoppingCart.class)).thenReturn(dto);
+        when(mapper.map(cart, ShoppingCartDto.class)).thenReturn(dto);
 
         var result = service.updateProductCart(dto, id);
 
@@ -73,7 +73,7 @@ class ShoppingCartServiceTest {
                 () -> assertNotNull(result),
                 () -> assertEquals(dto, result),
                 () -> verify(repository).getReferenceById(id),
-                () -> verify(mapper).map(cart, DataShoppingCart.class)
+                () -> verify(mapper).map(cart, ShoppingCartDto.class)
         );
     }
     @Test

@@ -1,6 +1,6 @@
 package br.com.onlineStore.shoppingCartms.controller;
 
-import br.com.onlineStore.shoppingCartms.application.dto.DataShoppingCart;
+import br.com.onlineStore.shoppingCartms.application.dto.ShoppingCartDto;
 import br.com.onlineStore.shoppingCartms.infra.ShoppingCartRepositoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ShoppingCartController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@RequestBody @Valid DataShoppingCart dto, @PathVariable Long id){
+    public ResponseEntity update(@RequestBody @Valid ShoppingCartDto dto, @PathVariable Long id){
         var cart = service.updateProductCart(dto, id);
         return ResponseEntity.ok(cart);
     }
@@ -36,7 +36,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping
-    public Page<DataShoppingCart> findAll(@PageableDefault(sort = "price") Pageable pageable){
+    public Page<ShoppingCartDto> findAll(@PageableDefault(sort = "price") Pageable pageable){
         return service.allShoppingCart(pageable);
     }
 }
