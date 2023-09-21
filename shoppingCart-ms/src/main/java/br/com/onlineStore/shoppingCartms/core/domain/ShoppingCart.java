@@ -20,13 +20,7 @@ public class ShoppingCart {
     @NotBlank
     private String name;
     @NotNull
-    private double price;
+    private ProductCart product;
     @NotNull
-    private int quantity;
-
-    public void updateShoppingCart(ShoppingCartDto dto){
-        this.name = dto.getName();
-        this.price = dto.getPrice();
-        this.quantity = dto.getQuantity();
-    }
+    private Quantity quantity;
 }
