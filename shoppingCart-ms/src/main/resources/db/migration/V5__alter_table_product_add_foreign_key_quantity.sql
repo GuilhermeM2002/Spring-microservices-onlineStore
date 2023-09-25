@@ -1,1 +1,0 @@
-alter table product add constraint product_quantity_fk foreign key (quantity_fk) references quantity (id);

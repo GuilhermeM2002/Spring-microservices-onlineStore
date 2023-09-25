@@ -1,9 +1,7 @@
 create table shopping_cart(
-    id bigint not null auto_increment,
-    product_fk bigint not null,
-    name varchar(40) not null,
-    price numeric(6, 2) not null,
-    quantity int not null,
+    id bigint not null,
+    date_creation date time not null,
+    status varchar(20) not null,
 
     primary key (id)
 )

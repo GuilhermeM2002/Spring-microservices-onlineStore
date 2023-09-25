@@ -1,6 +1,5 @@
 package br.com.onlineStore.shoppingCartms.controller;
 
-import br.com.onlineStore.shoppingCartms.application.dto.ShoppingCartDto;
 import br.com.onlineStore.shoppingCartms.infra.ShoppingCartRepositoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ import br.com.onlineStore.catalogms.aplication.dto.ProductDto;
 import br.com.onlineStore.catalogms.aplication.useCasesImpl.PersistProductUseCaseImpl;
 import br.com.onlineStore.catalogms.aplication.useCasesImpl.UpdateProductUseCaseImpl;
 import br.com.onlineStore.catalogms.infra.exception.PriceInvalidException;
-import br.com.onlineStore.catalogms.infra.impl.ProductRepositoryService;
+import br.com.onlineStore.catalogms.infra.ProductRepositoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +26,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity persist(@RequestBody @Valid ProductDto dto, UriComponentsBuilder builder) throws PriceInvalidException {
         var product = persistProduct.persistProduct(dto);
-        var uri = builder.path("product/{code}").buildAndExpand(product.codeProduct()).toUri();
+        var uri = builder.path("product/{code}").buildAndExpand(product.getCodeProduct()).toUri();
         return ResponseEntity.created(uri).body(product);
     }
 

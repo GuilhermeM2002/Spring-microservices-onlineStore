@@ -17,7 +17,7 @@ public class PersistProductUseCaseImpl implements PersistProductUseCase {
     private ModelMapper mapper;
     @Override
     public ProductDto persistProduct(ProductDto dto) throws PriceInvalidException {
-        if (dto.price() <= 0){
+        if (dto.getPrice() <= 0){
             throw new PriceInvalidException();
         }
         var product = mapper.map(dto, Product.class);

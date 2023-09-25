@@ -1,4 +1,4 @@
-package br.com.onlineStore.catalogms.infra.impl;
+package br.com.onlineStore.catalogms.infra;
 
 import br.com.onlineStore.catalogms.adapters.repository.ProductRepository;
 import br.com.onlineStore.catalogms.aplication.dto.ProductDto;

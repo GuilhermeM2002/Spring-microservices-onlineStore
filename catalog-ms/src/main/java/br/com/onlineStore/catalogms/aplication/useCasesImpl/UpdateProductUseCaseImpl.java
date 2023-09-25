@@ -17,11 +17,11 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
     private ModelMapper mapper;
     @Override
     public void updateProduct(Product product, ProductDto dto) {
-        product.setName(dto.name());
-        product.setPrice(dto.price());
-        product.setDescription(dto.description());
-        product.setQuantity(dto.quantity());
-        product.setCategory(dto.category());
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setDescription(dto.getDescription());
+        product.setQuantity(dto.getQuantity());
+        product.setCategory(dto.getCategory());
     }
 
     @Override

@@ -1,6 +1,5 @@
 package br.com.onlineStore.shoppingCartms.service;
 
-import br.com.onlineStore.shoppingCartms.application.dto.ShoppingCartDto;
 import br.com.onlineStore.shoppingCartms.application.useCasesImpl.UpdateCartUseCaseImpl;
 import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
 import br.com.onlineStore.shoppingCartms.adapters.repository.ShoppingCartRepository;

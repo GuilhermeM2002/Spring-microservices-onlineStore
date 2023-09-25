@@ -1,5 +1,6 @@
 package br.com.onlineStore.shoppingCartms.application.dto;
 
+import br.com.onlineStore.shoppingCartms.core.domain.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,9 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShoppingCartDto {
-    private Long id;
-    private String name;
-    private double price;
+public class ItemCartDto {
+    private Product product;
     private int quantity;
 }
