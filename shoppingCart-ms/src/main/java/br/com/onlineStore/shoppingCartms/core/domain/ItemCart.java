@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "quantity")
-@Table(name = "quantity")
+@Entity(name = "item")
+@Table(name = "item")
 public class ItemCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
