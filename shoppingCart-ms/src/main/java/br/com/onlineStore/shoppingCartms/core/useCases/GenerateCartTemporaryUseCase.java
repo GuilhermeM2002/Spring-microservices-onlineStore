@@ -1,8 +1,7 @@
 package br.com.onlineStore.shoppingCartms.core.useCases;
 
-import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
+import br.com.onlineStore.shoppingCartms.application.dto.ShoppingCartDto;
 
 public interface GenerateCartTemporaryUseCase {
-    ShoppingCart createCart();
-    ShoppingCart generateToken();
+    ShoppingCartDto createCart();
 }
