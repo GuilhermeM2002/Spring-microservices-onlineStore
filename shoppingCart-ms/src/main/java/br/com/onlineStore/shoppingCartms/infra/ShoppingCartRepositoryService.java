@@ -2,7 +2,9 @@ package br.com.onlineStore.shoppingCartms.infra;
 
 import br.com.onlineStore.shoppingCartms.adapters.repository.ItemCartRepository;
 import br.com.onlineStore.shoppingCartms.application.dto.ItemCartDto;
+import br.com.onlineStore.shoppingCartms.application.useCasesImpl.GenerateCartTemporaryUseCaseImpl;
 import br.com.onlineStore.shoppingCartms.application.useCasesImpl.UpdateCartUseCaseImpl;
+import br.com.onlineStore.shoppingCartms.core.domain.ItemCart;
 import br.com.onlineStore.shoppingCartms.core.exception.ProductNotFoundException;
 import br.com.onlineStore.shoppingCartms.infra.http.ProductClient;
 import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
@@ -24,21 +26,23 @@ public class ShoppingCartRepositoryService {
     private ModelMapper mapper;
     @Autowired
     private UpdateCartUseCaseImpl updateCart;
+    @Autowired
+    private GenerateCartTemporaryUseCaseImpl generateCartTemporary;
     
-    public ItemCartDto persistProductCart(Long id){
-        var product = productClient.getProduct(id);
+    public ItemCartDto persistItemCart(Long idProduct, int quantity){
+        var product = productClient.getProduct(idProduct);
 
-        var productCart = mapper.map(product, ShoppingCart.class);
-        itemCartRepository.save(productCart);
+        var item = new ItemCart();
+        item.setProduct(product);
 
-        return mapper.map(product, ItemCartDto.class);
+        itemCartRepository.save(item);
+
+        return mapper.map(item, ItemCartDto.class);
     }
 
     public ItemCartDto updateItemCart(ItemCartDto dto, Long id){
         var itemCart = itemCartRepository.getReferenceById(id);
-        if(itemCart == null){
-            throw new ProductNotFoundException();
-        }
+
         updateCart.updateCart(dto, itemCart);
         return mapper.map(itemCart, ItemCartDto.class);
     }
