@@ -3,13 +3,9 @@ package br.com.onlineStore.shoppingCartms.infra;
 import br.com.onlineStore.shoppingCartms.adapters.repository.ItemCartRepository;
 import br.com.onlineStore.shoppingCartms.application.dto.ItemCartDto;
 import br.com.onlineStore.shoppingCartms.application.useCasesImpl.GenerateCartTemporaryUseCaseImpl;
+import br.com.onlineStore.shoppingCartms.application.useCasesImpl.GenerateItemCartUseCaseImpl;
 import br.com.onlineStore.shoppingCartms.application.useCasesImpl.UpdateCartUseCaseImpl;
 import br.com.onlineStore.shoppingCartms.core.domain.ItemCart;
-import br.com.onlineStore.shoppingCartms.core.exception.ProductNotFoundException;
-import br.com.onlineStore.shoppingCartms.infra.http.ProductClient;
-import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
-import br.com.onlineStore.shoppingCartms.adapters.repository.ShoppingCartRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,8 +15,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShoppingCartRepositoryService {
     @Autowired
-    private ProductClient productClient;
-    @Autowired
     private ItemCartRepository itemCartRepository;
     @Autowired
     private ModelMapper mapper;
@@ -28,14 +22,13 @@ public class ShoppingCartRepositoryService {
     private UpdateCartUseCaseImpl updateCart;
     @Autowired
     private GenerateCartTemporaryUseCaseImpl generateCartTemporary;
+    @Autowired
+    private GenerateItemCartUseCaseImpl generateItemCart;
     
     public ItemCartDto persistItemCart(Long idProduct, int quantity){
-        var product = productClient.getProduct(idProduct);
+        var item = generateItemCart.generateItemCart(idProduct, quantity);
 
-        var item = new ItemCart();
-        item.setProduct(product);
-
-        itemCartRepository.save(item);
+        itemCartRepository.save(mapper.map(item, ItemCart.class));
 
         return mapper.map(item, ItemCartDto.class);
     }

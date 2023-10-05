@@ -6,10 +6,11 @@ import br.com.onlineStore.shoppingCartms.core.domain.ShoppingCart;
 import br.com.onlineStore.shoppingCartms.core.useCases.GenerateCartTemporaryUseCase;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.Base64;
-
+@Service
 public class GenerateCartTemporaryUseCaseImpl implements GenerateCartTemporaryUseCase {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;

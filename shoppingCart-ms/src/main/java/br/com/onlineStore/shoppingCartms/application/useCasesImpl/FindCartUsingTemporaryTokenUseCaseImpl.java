@@ -5,7 +5,9 @@ import br.com.onlineStore.shoppingCartms.application.dto.ShoppingCartDto;
 import br.com.onlineStore.shoppingCartms.core.useCases.FindCartUsingTemporaryTokenUseCase;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FindCartUsingTemporaryTokenUseCaseImpl implements FindCartUsingTemporaryTokenUseCase {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;

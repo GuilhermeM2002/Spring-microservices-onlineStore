@@ -1,6 +1,6 @@
 package br.com.onlineStore.shoppingCartms.application.dto;
 
-import br.com.onlineStore.shoppingCartms.core.domain.Product;
+import br.com.onlineStore.shoppingCartms.core.domain.ProductCart;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemCartDto {
-    private Product product;
+    private ProductCart product;
     private int quantity;
 }

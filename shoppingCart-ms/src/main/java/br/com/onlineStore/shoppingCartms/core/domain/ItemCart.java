@@ -9,14 +9,16 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "item")
+@Entity
 @Table(name = "item")
 public class ItemCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @ManyToOne
     private ShoppingCart shoppingCart;
-    private Product product;
+    @OneToOne
+    private ProductCart product;
     @Column(name = "qt_product")
     private int quantityOfProduct;
 

@@ -1,5 +1,6 @@
 package br.com.onlineStore.shoppingCartms.controller;
 
+import br.com.onlineStore.shoppingCartms.application.dto.ItemCartDto;
 import br.com.onlineStore.shoppingCartms.infra.ShoppingCartRepositoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,15 @@ public class ShoppingCartController {
     @Autowired
     private ShoppingCartRepositoryService service;
     @PostMapping("/{id}")
-    public ResponseEntity persist(@PathVariable Long id, UriComponentsBuilder builder){
+    public ResponseEntity persist(@PathVariable Long id, @PathVariable int quantity, UriComponentsBuilder builder){
         var uri = builder.path("/shoppingCart/{id}").buildAndExpand(id).toUri();
-        var cart = service.persistProductCart(id);
+        var cart = service.persistItemCart(id, quantity);
         return ResponseEntity.created(uri).body(cart);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@RequestBody @Valid ShoppingCartDto dto, @PathVariable Long id){
-        var cart = service.updateProductCart(dto, id);
+    public ResponseEntity update(@RequestBody @Valid ItemCartDto dto, @PathVariable Long id){
+        var cart = service.updateItemCart(dto, id);
         return ResponseEntity.ok(cart);
     }
 
@@ -35,7 +36,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping
-    public Page<ShoppingCartDto> findAll(@PageableDefault(sort = "price") Pageable pageable){
+    public Page<ItemCartDto> findAll(@PageableDefault(sort = "price") Pageable pageable){
         return service.allShoppingCart(pageable);
     }
 }

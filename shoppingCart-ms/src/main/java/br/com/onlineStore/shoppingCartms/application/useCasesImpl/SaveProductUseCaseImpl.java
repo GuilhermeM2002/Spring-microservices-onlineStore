@@ -2,11 +2,14 @@ package br.com.onlineStore.shoppingCartms.application.useCasesImpl;
 
 import br.com.onlineStore.shoppingCartms.adapters.repository.ProductRepository;
 import br.com.onlineStore.shoppingCartms.application.dto.ProductDto;
+import br.com.onlineStore.shoppingCartms.core.domain.ProductCart;
 import br.com.onlineStore.shoppingCartms.core.useCases.SaveProductUseCase;
-import br.com.onlineStore.shoppingCartms.infra.http.ProductClient;
+import br.com.onlineStore.shoppingCartms.adapters.http.ProductClient;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SaveProductUseCaseImpl implements SaveProductUseCase {
     @Autowired
     private ProductClient productClient;
@@ -17,7 +20,7 @@ public class SaveProductUseCaseImpl implements SaveProductUseCase {
     @Override
     public ProductDto saveProduct(Long productId) {
         var product = productClient.getProduct(productId);
-        productRepository.save(product);
+        productRepository.save(mapper.map(product, ProductCart.class));
 
         return mapper.map(product, ProductDto.class);
     }
